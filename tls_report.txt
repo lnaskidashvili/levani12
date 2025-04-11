@@ -1,0 +1,26 @@
+
+TLS Handshake Overview:
+
+The client initiates communication by sending a ClientHello message, listing the encryption algorithms (cipher suites) it supports.
+
+The server answers with a ServerHello, selecting a cipher suite and providing its digital certificate.
+
+The client checks the authenticity of the certificate using a trusted Certificate Authority (CA).
+
+A secure key exchange follows, leading to the creation of an encrypted session.
+
+How TLS Defends Against MITM Attacks:
+
+Digital certificates confirm the identity of the server.
+
+The Public Key Infrastructure (PKI) system ensures certificates are validated by recognized CAs.
+
+Perfect Forward Secrecy (PFS) guarantees that fresh encryption keys are generated for every session, limiting the impact if a key is compromised.
+
+TLS Role in HTTPS:
+
+HTTPS employs TLS to secure HTTP traffic.
+
+It guarantees privacy, data integrity, and authentication when users interact with websites.
+
+TLS protects web communication from eavesdropping, data manipulation, and identity spoofing.

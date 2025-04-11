@@ -1,0 +1,39 @@
+TASK 1: File Encryption with OpenSSL
+1. Create a text file (message.txt):
+echo "This is a secret message for encryption test." > message.txt
+2. Generate RSA Key Pair:
+# Generate private key
+openssl genpkey -algorithm RSA -out private.pem -pkeyopt rsa_keygen_bits:2048
+
+# Extract public key
+openssl rsa -pubout -in private.pem -out public.pem
+3. Encrypt the file using RSA public key:
+openssl rsautl -encrypt -inkey public.pem -pubin -in message.txt -out message_rsa_encrypted.bin
+4. Decrypt the file using RSA private key:
+openssl rsautl -decrypt -inkey private.pem -in message_rsa_encrypted.bin -out message_rsa_decrypted.txt
+5.# Generate random AES key and IV
+openssl rand -out aes_key.bin 32
+openssl rand -out aes_iv.bin 16
+
+# Prepare Key and IV in correct format (single-line hex)
+KEY=$(xxd -p aes_key.bin | tr -d '\n')
+IV=$(xxd -p aes_iv.bin | tr -d '\n')
+
+# Encrypt the file
+openssl enc -aes-256-cbc -in message.txt -out message_aes_encrypted.bin -K $KEY -iv $IV
+6. Decrypt the file using AES-256:
+# Prepare Key and IV in correct format (single-line hex)
+KEY=$(xxd -p aes_key.bin | tr -d '\n')
+IV=$(xxd -p aes_iv.bin | tr -d '\n')
+
+# Decrypt the file
+openssl enc -d -aes-256-cbc -in message_aes_encrypted.bin -out message_aes_decrypted.txt -K $KEY -iv $IV
+
+7. Explain Performance and Use-Case Differences (rsa_vs_aes.txt):
+rsa_vs_aes.txt
+
+
+
+
+
+
